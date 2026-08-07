@@ -1,0 +1,71 @@
+# config/mcp.yaml — MCP server configuration (version-controlled subset)
+# Merged into ~/.hermes/config.yaml via scripts/sync-config.sh --sync-mcp
+#
+# Model Context Protocol (MCP) servers provide additional tools to Hermes.
+# Each server runs as a subprocess (stdio) or connects via HTTP.
+# After adding a server, restart Hermes or run /reload-skills.
+#
+# Prerequisites:
+#   - stdio servers: npx (Node.js) or uvx (Python) must be installed
+#   - HTTP servers: the server must be running and reachable
+#   - API keys: set in .env, referenced via ${ENV_VAR} syntax
+#
+# Docs: https://hermes-agent.nousresearch.com/docs/guides/use-mcp-with-hermes
+
+# ---------------------------------------------------------------------------
+# MCP Servers — uncomment and configure to activate
+# ---------------------------------------------------------------------------
+# mcp_servers:
+
+  # --- Filesystem: read/write files in allowed directories ---
+  # filesystem:
+  #   command: npx
+  #   args:
+  #     - "-y"
+  #     - "@modelcontextprotocol/server-filesystem"
+  #     - "/home/user"           # allowed directory (repeat for multiple)
+
+  # --- GitHub: manage repos, issues, PRs ---
+  # github:
+  #   command: npx
+  #   args:
+  #     - "-y"
+  #     - "@modelcontextprotocol/server-github"
+  #   env:
+  #     GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
+
+  # --- PostgreSQL: query databases directly ---
+  # postgres:
+  #   command: npx
+  #   args:
+  #     - "-y"
+  #     - "@modelcontextprotocol/server-postgres"
+  #     - "postgresql://user:pass@localhost:5432/dbname"
+
+  # --- Brave Search: web and local search ---
+  # brave-search:
+  #   command: npx
+  #   args:
+  #     - "-y"
+  #     - "@modelcontextprotocol/server-brave-search"
+  #   env:
+  #     BRAVE_API_KEY: ${BRAVE_API_KEY}
+
+  # --- Time: get current time and timezone conversions ---
+  # time:
+  #   command: uvx
+  #   args:
+  #     - "mcp-server-time"
+
+  # --- Memory: persistent knowledge graph (alternative to built-in memory) ---
+  # memory:
+  #   command: npx
+  #   args:
+  #     - "-y"
+  #     - "@modelcontextprotocol/server-memory"
+
+  # --- HTTP-based server example (e.g., self-hosted or cloud MCP) ---
+  # notion:
+  #   url: https://mcp.notion.com/mcp
+  #   headers:
+  #     Authorization: "Bearer ${NOTION_API_KEY}"

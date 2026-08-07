@@ -1,0 +1,11 @@
+# config/slack.yaml — ready-to-use Slack gateway config
+# Merge into ~/.hermes/config.yaml via: bash scripts/sync-config.sh --sync-gateway
+
+gateway:
+  platforms:
+    slack:
+      bot_token: ${SLACK_BOT_TOKEN}
+      app_token: ${SLACK_APP_TOKEN}
+      # respond_in_threads: true    # reply inside threads when mentioned
+      # allowed_channels: ""        # empty = all channels; or list channel IDs
+      # allowed_users: []           # restrict to specific Slack user IDs

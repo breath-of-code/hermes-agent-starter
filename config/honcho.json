@@ -1,0 +1,24 @@
+{
+  "_comment": "Honcho memory provider configuration for Hermes Agent. Copy to $HERMES_HOME/honcho.json (or ~/.honcho/config.json for global). API key goes in .env as HONCHO_API_KEY, NOT in this file.",
+  "workspace": "hermes-blueprint",
+  "peerName": "user",
+  "aiPeer": "hermes",
+  "baseUrl": "https://api.honcho.dev",
+  "writeFrequency": "turn",
+  "recallMode": "auto",
+  "sessionStrategy": "default",
+  "sessionPeerPrefix": false,
+  "pinUserPeer": true,
+  "observation": {
+    "user": true,
+    "assistant": true
+  },
+  "contextBudget": {
+    "maxTokens": 4000,
+    "maxMessages": 20
+  },
+  "dialectic": {
+    "enabled": true,
+    "interval": 10
+  }
+}

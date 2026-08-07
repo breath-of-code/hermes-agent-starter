@@ -1,0 +1,20 @@
+# Auto-detect text files, convert to LF on commit
+* text=auto
+
+# Shell scripts must use LF (Windows git may convert to CRLF otherwise)
+*.sh text eol=lf
+
+# Config files — LF for cross-platform consistency
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.env.example text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

@@ -1,0 +1,188 @@
+# config/config.yaml — version-controlled subset
+# Merge into ~/.hermes/config.yaml via scripts/sync-config.sh
+
+model:
+  default: deepseek-v4-pro
+  provider: ollama-cloud
+  # ── Fallback providers (tried in order when primary model fails) ──────────
+  # Configure via `hermes fallback add` or edit YAML directly.
+  # fallback_providers:
+  #   - provider: openrouter
+  #     model: anthropic/claude-sonnet-4
+  #   - provider: custom
+  #     model: llama-3.1-70b
+  #     base_url: http://localhost:8000/v1
+  #     key_env: LOCAL_API_KEY
+  #   - provider: xai
+  #     model: grok-3           # v2026.8.1+ — xAI Grok for Cursor Composer
+  #     key_env: XAI_GROK_API_KEY
+
+agent:
+  max_turns: 150
+  tool_use_enforcement: auto
+  parallel_tool_call_guidance: true
+  # ── Reasoning effort (controls how much "thinking" the model does) ─────────
+  # Options: xhigh, high, medium, low, minimal, none. Empty = provider default.
+  # reasoning_effort: "medium"
+  # ── Per-model reasoning effort overrides (optional) ────────────────────────
+  # Key: model name (provider prefix optional). First match wins.
+  # reasoning_overrides:
+  #   "deepseek-v4-pro": "xhigh"
+  #   "claude-opus-4.6": "high"
+  #   "gpt-5": "low"
+
+terminal:
+  backend: local          # local | docker | ssh | modal
+  timeout: 180
+  # For Docker sandbox (optional, uncomment to use):
+  # backend: docker
+  # docker_image: nikolaik/python-nodejs:python3.11-nodejs20
+
+# ── Web Search ──────────────────────────────────────────────────────────────
+web:
+  search_backend: ddgs    # DuckDuckGo — free, no API key needed
+  # Other options: brave-free (free API key), tavily, firecrawl, searxng, exa
+
+# ── Browser Automation ──────────────────────────────────────────────────────
+browser:
+  engine: cdp             # Local Chromium via Chrome DevTools Protocol
+  cdp_url: http://127.0.0.1:9222
+  # Start Chromium: chrome --headless=new --no-sandbox --remote-debugging-port=9222
+  # Other options: browser-use, browserbase, firecrawl (all cloud/paid)
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  nudge_interval: 10
+  # External memory provider (optional — uncomment to activate)
+  # provider: honcho             # honcho | openviking | mem0 | hindsight | holographic | retaindb | byterover | supermemory
+
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+
+delegation:
+  max_concurrent_children: 3
+  max_spawn_depth: 1
+  # v2026.7.20+ — Background subagents (run subagents without blocking the main conversation)
+  # background_subagents: true
+
+curator:
+  enabled: true
+  interval_hours: 168
+  stale_after_days: 30
+  archive_after_days: 90
+
+security:
+  redact_secrets: true
+  tirith_enabled: true
+
+approvals:
+  mode: smart             # manual | smart | off (smart is default since v0.19.0)
+  # v0.19.0+ — User-defined deny rules (block commands even under yolo mode)
+  # deny_rules:
+  #   - pattern: "rm -rf /"
+  #     reason: "Never delete root"
+  #   - pattern: "DROP (DATABASE|TABLE)"
+  #     reason: "Database operations require manual review"
+  #   - pattern: "chmod 777"
+  #     reason: "Overly permissive permissions"
+
+# v0.19.0+ — Profile-based message routing
+routing:
+  profile_routing: true   # route messages to correct profile based on context
+  default_profile: default
+
+# v0.19.0+ — Secret sources (Bitwarden, 1Password, env)
+secrets:
+  sources: []             # e.g., ["bitwarden", "1password"]
+  redact_in_logs: true
+  # Example with Bitwarden:
+  # sources:
+  #   - provider: bitwarden
+  #     vault: "dev-creds"
+  #     priority: 1
+  #   - provider: onepassword
+  #     vault: "Production"
+  #     priority: 2
+  # op:// references resolved at load time:
+  #   op://Production/OpenAI/credential → OPENAI_API_KEY
+
+# v0.19.0+ — Durable delivery ledger
+delivery:
+  ledger_enabled: true    # survive gateway crashes, track message delivery
+
+# ---------------------------------------------------------------------------
+# v2026.7.20+ — Blank Slate mode (minimal toolset for focused work)
+# Uncomment to start with only the essentials: provider, model, file ops, terminal.
+# ---------------------------------------------------------------------------
+# blank_slate:
+#   enabled: true
+#   platform_toolsets:
+#     cli:
+#       - file_operations
+#       - terminal
+#   disabled_toolsets:
+#     - browser
+#     - image_generation
+#     - web_search
+
+# ---------------------------------------------------------------------------
+# v2026.7.20+ — Nous Portal integration (Quick Setup, OIDC login, web dashboard)
+# ---------------------------------------------------------------------------
+# nous_portal:
+#   enabled: true
+#   auth:
+#     provider: oidc          # oidc | username_password
+#     oidc_issuer: https://auth.nousresearch.com
+#   dashboard:
+#     enabled: true           # web-based admin panel (MCP catalog, channels, credentials, webhooks)
+
+# ---------------------------------------------------------------------------
+# v2026.7.20+ — Raft agent network (peer-to-peer agent collaboration)
+# ---------------------------------------------------------------------------
+# raft:
+#   enabled: true
+#   peers: []                 # list of peer agent addresses
+#   discovery: mdns           # mdns | static | consul
+
+# ---------------------------------------------------------------------------
+# v2026.7.20+ — Skills Hub (trusted skill sources)
+# ---------------------------------------------------------------------------
+# skills_hub:
+#   trusted_sources:
+#     - nvidia/skills          # NVIDIA's curated skill collection
+#     - nousresearch/skills    # Nous Research official skills
+
+# ---------------------------------------------------------------------------
+# Gateway — messaging platforms (uncomment and configure to activate)
+# Run `hermes gateway setup` for interactive setup, or hand-edit below.
+# Tokens go in .env (never commit them here).
+# ---------------------------------------------------------------------------
+gateway:
+   platforms:
+#     telegram:
+#       bot_token: ${TELEGRAM_BOT_TOKEN}
+#       # allowed_users: ["123456789"]   # restrict to specific Telegram user IDs
+     discord:
+       token: ${DISCORD_BOT_TOKEN}
+#       # require_mention: true          # only respond when @mentioned
+#       # free_response_channels: []      # channel IDs where bot responds freely
+#       # auto_thread: true              # create threads on @mention
+#     slack:
+#       token: ${SLACK_BOT_TOKEN}
+#       app_token: ${SLACK_APP_TOKEN}    # for Socket Mode
+#     signal:
+#       phone_number: ${SIGNAL_PHONE}
+#     whatsapp:
+#       token: ${WHATSAPP_TOKEN}
+#       phone_number_id: ${WHATSAPP_PHONE_ID}
+#     email:
+#       smtp_host: ${EMAIL_SMTP_HOST}
+#       smtp_port: ${EMAIL_SMTP_PORT}
+#       username: ${EMAIL_USERNAME}
+#       password: ${EMAIL_PASSWORD}
+#     imessage:
+#       photon_enabled: true     # v2026.8.1+ — iMessage via Photon bridge
+#       # allowed_contacts: ["+1234567890"]  # restrict to specific phone numbers

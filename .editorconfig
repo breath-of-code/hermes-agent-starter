@@ -1,0 +1,50 @@
+# .editorconfig — cross-editor settings for hermes-agent-blueprint
+# Matches .gitattributes: LF line endings, consistent indentation
+# Supported by VS Code, IntelliJ, Notepad++, Sublime, and most editors
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Shell scripts: 4-space indent (enforced via set -euo pipefail)
+[*.sh]
+indent_style = space
+indent_size = 4
+
+# YAML: 2-space indent (syntax requirement)
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+# JSON: 2-space indent
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Markdown: 2-space indent (tables, lists)
+[*.md]
+indent_style = space
+indent_size = 2
+
+# Python: 4-space indent (PEP 8)
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Environment files: 2-space indent
+[.env.example]
+indent_style = space
+indent_size = 2
+
+# Git files: no indent rules needed
+[.gitignore]
+indent_style = space
+indent_size = 2
+
+[.gitattributes]
+indent_style = space
+indent_size = 2

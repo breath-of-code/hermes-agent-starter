@@ -1,0 +1,10 @@
+{
+  "curator": {
+    "staging_directory": "./staging",
+    "production_directory": "./active",
+    "min_successful_invocations": 3,
+    "similarity_threshold": 0.85,
+    "enforced_tags": ["devops", "automation", "sys-admin", "testing", "coding"],
+    "auto_archive_duplicates": true
+  }
+}

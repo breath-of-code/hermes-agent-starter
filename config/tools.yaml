@@ -1,0 +1,56 @@
+# config/tools.yaml — Toolset configuration (version-controlled subset)
+# Merged into ~/.hermes/config.yaml via scripts/sync-config.sh --sync-tools
+#
+# Hermes manages tools via "toolsets" — named bundles of tools.
+# Each platform (CLI, Telegram, Discord, etc.) gets its own toolset assignment.
+# Use `hermes tools` for interactive management, or hand-edit below.
+
+# ---------------------------------------------------------------------------
+# Per-platform toolset assignments
+# Each platform key maps to a list of toolset names.
+# Built-in platform presets: hermes-cli, hermes-telegram, hermes-discord, etc.
+# Special values: "all" or "*" expands to every registered toolset.
+# ---------------------------------------------------------------------------
+# platform_toolsets:
+#   hermes-cli:
+#     - file
+#     - terminal
+#     - code_execution
+#     - web
+#     - vision
+#     - memory
+#   hermes-telegram:
+#     - file
+#     - terminal
+#     - web
+#     - memory
+#   hermes-discord:
+#     - file
+#     - web
+#     - memory
+
+# ---------------------------------------------------------------------------
+# Plugin-provided toolsets
+# When plugins register tools, they appear here. Enable/disable per plugin.
+# Use "all" to enable every plugin toolset, or list specific ones.
+# ---------------------------------------------------------------------------
+# known_plugin_toolsets:
+#   - spotify
+#   - todoist
+#   - obsidian
+
+# ---------------------------------------------------------------------------
+# Custom toolsets
+# Define your own toolset bundles for reuse across platforms.
+# Example: a "data-science" bundle for Jupyter/analysis workflows.
+# ---------------------------------------------------------------------------
+# custom_toolsets:
+#   data-science:
+#     - file
+#     - terminal
+#     - code_execution
+#     - web
+#     - vision
+#   minimal:
+#     - file
+#     - terminal

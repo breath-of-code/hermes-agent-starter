@@ -1,0 +1,19 @@
+# config/telegram.yaml — Telegram gateway configuration
+# Merge into ~/.hermes/config.yaml via: bash scripts/sync-config.sh --sync-gateway
+# Setup guide: config/telegram.md
+
+gateway:
+  platforms:
+    telegram:
+      # Required: your bot token from @BotFather
+      bot_token: ${TELEGRAM_BOT_TOKEN}
+
+      # Enable emoji reactions on bot messages (acknowledgment, status)
+      reactions: false
+
+      # Restrict to specific chat IDs (leave empty for all chats)
+      # allowed_chats: ["123456789", "987654321"]
+      allowed_chats: ""
+
+      # Use rich formatting (Markdown) in messages
+      rich_messages: true

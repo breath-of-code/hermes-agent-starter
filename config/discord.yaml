@@ -1,0 +1,25 @@
+# config/discord.yaml — Discord gateway configuration
+# Merge into ~/.hermes/config.yaml via: bash scripts/sync-config.sh --sync-gateway
+# Setup guide: config/discord.md
+
+gateway:
+  platforms:
+    discord:
+      # Required: your bot token from https://discord.com/developers/applications
+      bot_token: ${DISCORD_BOT_TOKEN}
+
+      # Only respond when @mentioned (recommended for shared servers)
+      require_mention: true
+
+      # Automatically create threads on @mention to keep channels clean
+      auto_thread: true
+
+      # Enable emoji reactions on bot messages (acknowledgment, status)
+      reactions: true
+
+      # Restrict to specific channel IDs (leave empty for all channels)
+      # allowed_channels: ["1234567890123456789", "9876543210987654321"]
+      allowed_channels: ""
+
+      # Channel IDs where the bot responds freely without @mention
+      # free_response_channels: ["1234567890123456789"]
