@@ -1,0 +1,31 @@
+# config/cron.yaml — Cron job definitions for the Hermes Agent Blueprint
+# Sync to Hermes runtime via: bash scripts/sync-cron.sh
+# See config/cron-prompt.md for the shared task prompt.
+#
+# This is a ready-to-use TEMPLATE. Customize the job names, schedules, and
+# workdir to your own environment, then run:
+#   bash scripts/sync-config.sh --sync-cron
+# to load them into Hermes runtime state.
+
+jobs:
+  - name: my-blueprint-weekday
+    schedule: "*/30 20-21 * * 1-5"
+    max_tasks: 3
+    toolsets:
+      - file
+      - terminal
+      - web
+    prompt_file: config/cron-prompt.md
+    workdir: /path/to/your/hermes-agent-starter
+    deliver: local
+
+  - name: my-blueprint-weekend
+    schedule: "*/45 10-21 * * 6,7"
+    max_tasks: 3
+    toolsets:
+      - file
+      - terminal
+      - web
+    prompt_file: config/cron-prompt.md
+    workdir: /path/to/your/hermes-agent-starter
+    deliver: local

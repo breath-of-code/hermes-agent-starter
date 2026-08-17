@@ -36,7 +36,7 @@ hermes chat -q "Hello, who am I?"
 
 | Directory | Purpose |
 |-----------|---------|
-| `config/` | SOUL.md (persona) + config.yaml (agent settings) + tools.yaml + mcp.yaml + honcho.json |
+| `config/` | SOUL.md (persona) + config.yaml (agent settings) + tools.yaml + mcp.yaml + honcho.json + cron.yaml + cron-prompt.md |
 | `skills/active/` | Production-validated skills |
 | `skills/staging/` | New skills awaiting validation (3+ successful invocations) |
 | `profiles/` | Per-context AGENTS.md directives (dev-ops, research) |
@@ -259,7 +259,40 @@ Runs core config sync + `--sync-tools` + `--sync-mcp` + `--sync-cron` + `--push-
 
 ## Cron Jobs
 
-> **Note:** The upstream blueprint's cron jobs (`config/cron.yaml` and `config/cron-prompt.md`) are personal to the author and are **not** included in this public starter. Define your own cron jobs in Hermes runtime state and sync them into your repo if you want them portable. See the Hermes docs for cron configuration.
+This blueprint ships ready-to-use cron job templates so you can set up autonomous task scheduling.
+
+### What's included
+
+| File | Purpose |
+|------|---------|
+| `config/cron.yaml` | Two example jobs (weekday + weekend) with schedules, max tasks, and toolsets |
+| `config/cron-prompt.md` | The shared task prompt both jobs use |
+
+### Activate
+
+```bash
+# Sync cron jobs only
+bash scripts/sync-config.sh --sync-cron
+
+# Or sync everything (includes cron)
+bash scripts/sync-config.sh --sync-all
+```
+
+### Customize
+
+Edit `config/cron.yaml` to change job names, schedules, max tasks, or toolsets. Edit `config/cron-prompt.md` to change the task prompt. Set `workdir` to your repo path. After editing, re-sync:
+
+```bash
+bash scripts/sync-config.sh --sync-cron
+```
+
+### Verify
+
+```bash
+hermes cron list
+```
+
+> **Note:** Cron jobs are idempotent — re-syncing updates existing jobs instead of creating duplicates. See `config/cron.yaml` and `config/cron-prompt.md` for the full configuration.
 
 ## Gateway Setup
 
