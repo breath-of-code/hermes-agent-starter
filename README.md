@@ -6,8 +6,8 @@ A GitOps-driven, self-evolving Hermes Agent configuration framework. Clone this 
 
 ```bash
 # 1. Clone
-git clone https://github.com/tn1412dt/hermes-agent-blueprint.git
-cd hermes-agent-blueprint
+git clone https://github.com/your-username/hermes-agent-starter.git
+cd hermes-agent-starter
 
 # 2. Set up secrets
 cp .env.example .env
@@ -109,7 +109,7 @@ agent:
 # Edit config/SOUL.md in the repo, then sync
 bash scripts/sync-config.sh
 
-# Commit changes (push handled manually by TrungT)
+# Commit changes (push handled manually by the repo owner)
 git add -A
 git commit -m "feat(skills): add new skill"
 ```
@@ -308,24 +308,12 @@ See `config/discord.yaml` and `config/telegram.yaml` for options like `require_m
 
 ```bash
 curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-git clone https://github.com/tn1412dt/hermes-agent-blueprint.git
-cd hermes-agent-blueprint
+git clone https://github.com/your-username/hermes-agent-starter.git
+cd hermes-agent-starter
 cp .env.example .env   # edit with real keys
 bash scripts/sync-config.sh --sync-all   # core configs + tools + MCP + gateway + cron + memory
 hermes doctor
 ```
-
-## Public Edition
-
-To generate a sanitized, shareable version of this blueprint (with personal info like `TrungT`, `tn1412dt`, and the private task history removed), run:
-
-```bash
-bash scripts/export-public.sh
-```
-
-The public snapshot is derived directly from the private files in this repo. `scripts/export-public.sh` copies `README.md`, `AGENTS.md`, `config/SOUL.md`, `config/honcho.json`, `.editorconfig`, `.gitattributes`, `.gitignore`, and other public-safe files, then sanitizes personal identifiers and URLs. This means future edits to the private files automatically propagate to the public export — no need to maintain separate copies.
-
-The default output is `/tmp/hermes-agent-blueprint-public`. The export script verifies the output contains no personal identifiers, no `.env`/`.hermes`/memory files, and no real secrets. After export, review the output, create a new public repo, copy the files in, replace the `your-username` placeholders, and push.
 
 ## Platform Support
 
