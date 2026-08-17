@@ -40,7 +40,7 @@ hermes chat -q "Hello, who am I?"
 | `skills/active/` | Production-validated skills |
 | `skills/staging/` | New skills awaiting validation (3+ successful invocations) |
 | `profiles/` | Per-context AGENTS.md directives (dev-ops, research) |
-| `scripts/` | Utility scripts (sync-config.sh, sync-cron.sh, cron-health-check.sh, promote-skills.sh, backup-hermes.sh, restore-hermes.sh, export-public.sh) |
+| `scripts/` | Utility scripts (sync-config.sh, sync-cron.sh, cron-health-check.sh, promote-skills.sh, backup-hermes.sh, restore-hermes.sh) |
 
 ## Model Selection
 
@@ -232,7 +232,6 @@ hermes doctor
 |------|----------|
 | `scripts/sync-config.sh` | Day-to-day sync of the version-controlled blueprint subset (SOUL.md, config.yaml, skills, profiles, etc.) |
 | `scripts/backup-hermes.sh` + `scripts/restore-hermes.sh` | Full migration or disaster recovery of the entire `~/.hermes/` directory |
-| `scripts/export-public.sh` | Generate a sanitized, shareable snapshot with personal info removed |
 
 ## Tools & MCP Sync
 
@@ -341,6 +340,6 @@ bash scripts/sync-config.sh --dry-run
 ```
 
 ### Known platform differences
-- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/export-public.sh` and `scripts/promote-skills.sh` also prefer `python` but fall back to `python3`.
+- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but falls back to `python3`.
 - `sed -i` syntax: `scripts/promote-skills.sh` branches on `OSTYPE` for macOS vs Linux/Windows.
 - Path separators: the repo and scripts use forward slashes everywhere, which works on all three platforms.
