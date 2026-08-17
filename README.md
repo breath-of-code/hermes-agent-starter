@@ -6,8 +6,8 @@ A GitOps-driven, self-evolving Hermes Agent configuration framework. Clone this 
 
 ```bash
 # 1. Clone
-git clone https://github.com/your-username/hermes-agent-starter.git
-cd hermes-agent-starter
+git clone https://github.com/tn1412dt/hermes-agent-blueprint.git
+cd hermes-agent-blueprint
 
 # 2. Set up secrets
 cp .env.example .env
@@ -36,7 +36,7 @@ hermes chat -q "Hello, who am I?"
 
 | Directory | Purpose |
 |-----------|---------|
-| `config/` | SOUL.md (persona) + config.yaml (agent settings) + tools.yaml + mcp.yaml + honcho.json + cron.yaml + cron-prompt.md |
+| `config/` | SOUL.md (persona) + config.yaml (agent settings) + tools.yaml + mcp.yaml + honcho.json |
 | `skills/active/` | Production-validated skills |
 | `skills/staging/` | New skills awaiting validation (3+ successful invocations) |
 | `profiles/` | Per-context AGENTS.md directives (dev-ops, research) |
@@ -109,7 +109,7 @@ agent:
 # Edit config/SOUL.md in the repo, then sync
 bash scripts/sync-config.sh
 
-# Commit changes (push handled manually by user)
+# Commit changes (push handled manually by TrungT)
 git add -A
 git commit -m "feat(skills): add new skill"
 ```
@@ -232,6 +232,7 @@ hermes doctor
 |------|----------|
 | `scripts/sync-config.sh` | Day-to-day sync of the version-controlled blueprint subset (SOUL.md, config.yaml, skills, profiles, etc.) |
 | `scripts/backup-hermes.sh` + `scripts/restore-hermes.sh` | Full migration or disaster recovery of the entire `~/.hermes/` directory |
+| `scripts/export-public.sh` | Generate a sanitized, shareable snapshot with personal info removed |
 
 ## Tools & MCP Sync
 
@@ -259,42 +260,7 @@ Runs core config sync + `--sync-tools` + `--sync-mcp` + `--sync-cron` + `--push-
 
 ## Cron Jobs
 
-This blueprint includes two scheduled cron jobs that automatically work through the task backlog. They live in Hermes runtime state — syncing them into the repo makes the entire system portable across machines.
-
-### What they do
-
-| Job | Schedule | Tasks/Session | Active |
-|-----|----------|---------------|--------|
-| `hermes-blueprint-weekday` | Every 30 min, 20:00–22:00 Mon–Fri | 3 | Weekdays |
-| `hermes-blueprint-weekend` | Every 45 min, 10:00–22:00 Sat–Sun | 3 | Weekends |
-
-Both jobs use the same task prompt (`config/cron-prompt.md`) and work through `tasks/BACKLOG.md`. When the backlog is empty, they search for Hermes updates and propose new improvement tasks.
-
-### Activate
-
-```bash
-# Sync cron jobs only
-bash scripts/sync-config.sh --sync-cron
-
-# Or sync everything (includes cron)
-bash scripts/sync-config.sh --sync-all
-```
-
-### Customize
-
-Edit `config/cron.yaml` to change schedules, max tasks, or toolsets. Edit `config/cron-prompt.md` to change the task prompt. After editing, re-sync:
-
-```bash
-bash scripts/sync-config.sh --sync-cron
-```
-
-### Verify
-
-```bash
-hermes cron list
-```
-
-> **Note:** Cron jobs are idempotent — re-syncing updates existing jobs instead of creating duplicates. See `config/cron.yaml` and `config/cron-prompt.md` for the full configuration.
+> **Note:** The upstream blueprint's cron jobs (`config/cron.yaml` and `config/cron-prompt.md`) are personal to the author and are **not** included in this public starter. Define your own cron jobs in Hermes runtime state and sync them into your repo if you want them portable. See the Hermes docs for cron configuration.
 
 ## Gateway Setup
 
@@ -342,12 +308,24 @@ See `config/discord.yaml` and `config/telegram.yaml` for options like `require_m
 
 ```bash
 curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-git clone https://github.com/your-username/hermes-agent-starter.git
-cd hermes-agent-starter
+git clone https://github.com/tn1412dt/hermes-agent-blueprint.git
+cd hermes-agent-blueprint
 cp .env.example .env   # edit with real keys
 bash scripts/sync-config.sh --sync-all   # core configs + tools + MCP + gateway + cron + memory
 hermes doctor
 ```
+
+## Public Edition
+
+To generate a sanitized, shareable version of this blueprint (with personal info like `TrungT`, `tn1412dt`, and the private task history removed), run:
+
+```bash
+bash scripts/export-public.sh
+```
+
+The public snapshot is derived directly from the private files in this repo. `scripts/export-public.sh` copies `README.md`, `AGENTS.md`, `config/SOUL.md`, `config/honcho.json`, `.editorconfig`, `.gitattributes`, `.gitignore`, and other public-safe files, then sanitizes personal identifiers and URLs. This means future edits to the private files automatically propagate to the public export — no need to maintain separate copies.
+
+The default output is `/tmp/hermes-agent-blueprint-public`. The export script verifies the output contains no personal identifiers, no `.env`/`.hermes`/memory files, and no real secrets. After export, review the output, create a new public repo, copy the files in, replace the `your-username` placeholders, and push.
 
 ## Platform Support
 
@@ -375,6 +353,6 @@ bash scripts/sync-config.sh --dry-run
 ```
 
 ### Known platform differences
-- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but fall back to `python3`.
+- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/export-public.sh` and `scripts/promote-skills.sh` also prefer `python` but fall back to `python3`.
 - `sed -i` syntax: `scripts/promote-skills.sh` branches on `OSTYPE` for macOS vs Linux/Windows.
 - Path separators: the repo and scripts use forward slashes everywhere, which works on all three platforms.
