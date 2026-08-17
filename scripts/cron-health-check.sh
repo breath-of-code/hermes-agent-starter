@@ -1,6 +1,6 @@
 #!/bin/bash
 # cron-health-check.sh — Verify cron jobs are running and log health status
-# Part of hermes-agent-blueprint Phase 3 automation
+# Part of hermes-agent-starter Phase 3 automation
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

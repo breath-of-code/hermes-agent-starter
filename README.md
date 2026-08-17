@@ -109,7 +109,7 @@ agent:
 # Edit config/SOUL.md in the repo, then sync
 bash scripts/sync-config.sh
 
-# Commit changes (push handled manually by the repo owner)
+# Commit changes (push handled manually by user)
 git add -A
 git commit -m "feat(skills): add new skill"
 ```
@@ -117,7 +117,7 @@ git commit -m "feat(skills): add new skill"
 ## Maintenance (Monthly)
 
 ```bash
-cd ~/hermes-agent-blueprint
+cd ~/hermes-agent-starter
 git pull origin main
 
 # Sync repo configs to ~/.hermes/ (backs up existing ~/.hermes/config.yaml if changed).
@@ -340,6 +340,6 @@ bash scripts/sync-config.sh --dry-run
 ```
 
 ### Known platform differences
-- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but falls back to `python3`.
+- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but fall back to `python3`.
 - `sed -i` syntax: `scripts/promote-skills.sh` branches on `OSTYPE` for macOS vs Linux/Windows.
 - Path separators: the repo and scripts use forward slashes everywhere, which works on all three platforms.

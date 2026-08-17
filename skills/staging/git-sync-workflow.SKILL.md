@@ -9,18 +9,18 @@ success_count: 0
 ---
 
 # Intent
-Performs the daily git synchronization workflow: pull latest changes, sync local configs to Hermes, commit any new changes. This is the standard end-of-session or periodic sync routine for the hermes-agent-blueprint repo.
+Performs the daily git synchronization workflow: pull latest changes, sync local configs to Hermes, commit any new changes. This is the standard end-of-session or periodic sync routine for the hermes-agent-starter repo.
 
 # Prerequisites
 - Git installed and configured
-- `hermes-agent-blueprint` repo cloned locally
+- `hermes-agent-starter` repo cloned locally
 - `scripts/sync-config.sh` present and executable
 - Remote `origin` configured and accessible (SSH or HTTPS with credentials)
 
 # Procedure
 1. Navigate to the blueprint repo root:
    ```bash
-   cd ~/hermes-agent-blueprint
+   cd ~/hermes-agent-starter
    ```
 2. Pull latest changes from remote:
    ```bash

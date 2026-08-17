@@ -1,6 +1,6 @@
 #!/bin/bash
 # promote-skills.sh — Auto-promote staging skills that meet promotion thresholds
-# Part of hermes-agent-blueprint Phase 3 automation
+# Part of hermes-agent-starter Phase 3 automation
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

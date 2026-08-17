@@ -1,6 +1,6 @@
 # Ubuntu 24 Cloud Machine Setup Guide
 
-This guide explains how to install Hermes Agent on an Ubuntu 24 cloud machine and clone the `hermes-agent-blueprint` repository using SSH.
+This guide explains how to install Hermes Agent on an Ubuntu 24 cloud machine and clone the `hermes-agent-starter` repository using SSH.
 
 ---
 
@@ -73,7 +73,7 @@ This installs Hermes in user space under `~/.hermes`.
 
 ```bash
 git clone git@github.com:your-username/hermes-agent-starter.git
-cd hermes-agent-blueprint
+cd hermes-agent-starter
 ```
 
 If you are using your own fork, replace `your-username` with your GitHub username.
@@ -85,7 +85,7 @@ If you are using your own fork, replace `your-username` with your GitHub usernam
 ### 6.1 Create `.env` from the template
 
 ```bash
-cd ~/hermes-agent-blueprint
+cd ~/hermes-agent-starter
 cp .env.example .env
 ```
 
@@ -154,7 +154,7 @@ Choose one of the following methods after editing `.env`:
 **Option A — Create `~/.hermes/.env` (recommended):**
 
 ```bash
-cp ~/hermes-agent-blueprint/.env ~/.hermes/.env
+cp ~/hermes-agent-starter/.env ~/.hermes/.env
 ```
 
 Verify it is in the right place:
@@ -166,7 +166,7 @@ ls -la ~/.hermes/.env
 **Option B — Source the repo `.env` for the current shell only:**
 
 ```bash
-cd ~/hermes-agent-blueprint
+cd ~/hermes-agent-starter
 set -a
 source .env
 set +a

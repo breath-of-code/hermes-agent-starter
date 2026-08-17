@@ -39,7 +39,7 @@ ok() {
     echo "[+] $1"
 }
 
-echo "[+] Linting hermes-agent-blueprint..."
+echo "[+] Linting hermes-agent-starter..."
 echo ""
 
 # ── 1. Shell script syntax ───────────────────────────────────────
@@ -118,17 +118,21 @@ fi
 echo ""
 
 # ── 5. Public export verification ────────────────────────────────
-if ! $SKIP_EXPORT; then
+# Only run if the private export script is present (it is not shipped in the
+# public edition, so this step skips cleanly there).
+if ! $SKIP_EXPORT && [ -f "$REPO_ROOT/scripts/export-public.sh" ]; then
     ok "Running public export verification (use --skip-export to skip)..."
-    EXPORT_DIR="/tmp/hermes-agent-blueprint-lint-public"
+    EXPORT_DIR="/tmp/hermes-agent-starter-lint-public"
     if bash "$REPO_ROOT/scripts/export-public.sh" "$EXPORT_DIR" >/dev/null 2>&1; then
         ok "  Public export verified successfully"
         rm -rf "$EXPORT_DIR"
     else
         error "Public export verification failed (run scripts/export-public.sh manually for details)"
     fi
-else
+elif [ -f "$REPO_ROOT/scripts/export-public.sh" ]; then
     warn "Skipping public export verification (--skip-export set)"
+else
+    warn "Skipping public export verification (scripts/export-public.sh not present)"
 fi
 echo ""
 

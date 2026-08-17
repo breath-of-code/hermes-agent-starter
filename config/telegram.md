@@ -32,7 +32,7 @@ help - Show help
 ### 3. Add the Token to .env
 
 ```bash
-# In your hermes-agent-blueprint directory:
+# In your hermes-agent-starter directory:
 echo "TELEGRAM_BOT_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz" >> .env
 ```
 

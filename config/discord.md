@@ -50,7 +50,7 @@ Click **Save Changes**.
 ### 5. Add the Token to .env
 
 ```bash
-# In your hermes-agent-blueprint directory:
+# In your hermes-agent-starter directory:
 echo "DISCORD_BOT_TOKEN=MTIzNDU2Nzg5..." >> .env
 ```
 
