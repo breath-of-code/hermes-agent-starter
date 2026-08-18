@@ -1,6 +1,6 @@
-# Hermes Agent Blueprint
+# Hermes Agent Starter
 
-A GitOps-driven, self-evolving Hermes Agent configuration framework. Clone this repo, sync, and your agent is ready — same identity, same skills, anywhere.
+A GitOps-driven, self-evolving **Hermes Agent** configuration framework. Clone this repo, sync, and your agent is ready — same identity, same skills, anywhere.
 
 ## Quick Start
 
@@ -109,7 +109,7 @@ agent:
 # Edit config/SOUL.md in the repo, then sync
 bash scripts/sync-config.sh
 
-# Commit changes (push handled manually by user)
+# Commit changes (push handled manually by the repo owner)
 git add -A
 git commit -m "feat(skills): add new skill"
 ```
@@ -373,6 +373,10 @@ bash scripts/sync-config.sh --dry-run
 ```
 
 ### Known platform differences
-- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but fall back to `python3`.
+- `python` vs `python3`: `scripts/sync-config.sh` detects the available command automatically. `scripts/promote-skills.sh` also prefers `python` but falls back to `python3`.
 - `sed -i` syntax: `scripts/promote-skills.sh` branches on `OSTYPE` for macOS vs Linux/Windows.
 - Path separators: the repo and scripts use forward slashes everywhere, which works on all three platforms.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
