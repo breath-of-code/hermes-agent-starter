@@ -23,6 +23,3 @@
 - `.editorconfig`, `.gitattributes`, `.gitignore` for cross-platform consistency
 - Generic `.env.example` with placeholder provider and gateway tokens
 - MIT `LICENSE`
-
-### Notes
-- This public edition is derived from a private upstream blueprint. Personal names, task history, and repository-specific workflow rules have been removed or anonymized.
